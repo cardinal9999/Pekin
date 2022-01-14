@@ -31,6 +31,8 @@ cd Pekin
 py
 ```
 
+## 📜 Docs
+[The Pekin Docs page](https://github.com/cardinal9999/Pekin/blob/main/tutorial.md) shows you how to code with Pekin in Python. It shows you all of the features in the Pekin templating engine.
 
 ## 🎯 Basics
 ```
