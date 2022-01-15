@@ -8,7 +8,7 @@ Unlike other templating engines, Pekin barely uses regex, which means fewer erro
 
 Pekin is extremely lightweight. It only weighs 9 kilobytes.
 
-## 🌟 Features
+## ✨ Features
 - Filters and parameters
 - Escaping
 - Loops
