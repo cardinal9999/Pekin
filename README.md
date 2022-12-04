@@ -6,7 +6,7 @@ Pekin is designed for simplicity, security, and compatibility.
 
 Unlike other templating engines, Pekin barely uses regex, which means fewer errors. It has no package requirements.
 
-Pekin is extremely lightweight. It only weighs 9 kilobytes.
+Pekin is extremely lightweight — it only weighs 9 kilobytes.
 
 ## ✨ Features
 - Filters and parameters
