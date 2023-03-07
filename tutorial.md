@@ -18,7 +18,7 @@ You can still use Pekin in IDLE.
 Put the `pekin` directory inside your Python project's directory to use Pekin.
 
 ## 2. Using Pekin API
-To run Pekin code in your Python compiler, run this code.
+This is the code for rendering a Pekin template:
 
 ```py
 import pekin
@@ -29,13 +29,13 @@ duck = pekin.Duck(template)
 rendered = duck.render(add=your, variables=here)
 ```
 
-To create a Pekin template object, run `pekin.Duck(template_code)`. You will learn the code for the templates in a moment.
+To create a Pekin template object, run `pekin.Duck(template_code)`. (You will soon learn the code for the making and rendering templates).
 
-Rendering a template means running it. `duck.render(variables)` will return the text the template has generated with `variables`.
+Note: rendering a template means running it. `duck.render(variables)` will return the text that the template has generated with `variables`.
 
 ### Toggling security
 
-Pekin and warns you if a template is trying to execute Python code.
+Pekin warns you if a template is trying to execute Python code.
 
 This can be prevented by running this in the Python shell:
 
@@ -49,9 +49,9 @@ Only do this if you are 100% sure that the template isn't trying to execute malw
 ## 3. Tags
 Tags are code surrounded by square brackets `[]`.
 
-The code is a mixture of other templating engines' tags like Underscore, Jinja, Squirrelly, Mustache, and Handlebars.
+The code is a mixture of other templating engines' tags like Underscore, Nunjucks, Jinja, Squirrelly, Mustache, and Handlebars.
 
-The reason why Pekin uses curly brackets is because JavaScript has at least 30% more curly brackets than square brackets.
+Pekin does not use curly brackets because JavaScript has more curly brackets than square brackets.
 
 Here is an example:
 ```py
@@ -108,7 +108,7 @@ Tags that use parameters:
 
 The two parameters of the Python replace() function are separated by `" ==> "` with 2 spaces between it.
 
-The asterisk is ignored.
+Note that the asterisk is ignored.
 
 ## 4. Escaping
 Unlike other templating engines, Pekin ignores any text inside square brackets that isn't Pekin code. But what if our template was this web page you are reading right now?
@@ -118,7 +118,7 @@ The Pekin documentation is filled with Pekin code! But there is an easy way to e
 ### [~ Escaping Square Brackets ~]
 To escape square brackets, we can replace the brackets with `[~` and `~]`.
 
-If we wanted to escape `[~ and ~]`, we can use `[!~~ and ~~!]`.
+And if we wanted to escape `[~ and ~]`, we can use `[!~~ and ~~!]`.
 
 `[!~~ There is currently no way to escape this! ~~!]`
 
@@ -150,7 +150,7 @@ Pekin has the `repeat` loop. Running `[*3 Key]` in Pekin is the same as `Key * 3
 
 > Structure: [*# Key] = Key: variable to repeat; #: Arbitrary number
 
-Loops can be used to shorten the size of templates. However, they can also be used to create malware. Pekin restricts the number of text to repeat to 20.
+Loops can be used to shorten the size of templates. However, they can also be used to create the XML entity lag bomb. Pekin restricts the number of text to repeat to 20.
 
 
 Like other templating engines, Pekin supports for-loops.
@@ -174,6 +174,8 @@ Running it with `List` being `[2, 5, 8, 3]` will return `58116`.
 ❌ Incorrect code: `[each*List | it + 3]`
 
 ❌ Incorrect code: `[each *List|it + 3]`
+
+IMPORTANT: **Pekin DOES NOT ignore whitespace!**
 ***
 Because of a Pekin bug, you must put a new line between each `each` loop. This is also same with `if statements`.
 
@@ -221,7 +223,7 @@ Hello, world!
 > Structure: [if code | key] = code: Python statement; key: variable to output if statement is true;
 
 #### Restrictions
-To prevent from executing malicious code, Pekin doesn't allow `eval(` or `exec(` in conditions.
+To prevent from executing malicious code, Pekin doesn't allow the strings `eval(` or `exec(` in conditions.
 
 ### Eval Tag
 The `eval` tag is for evaluating Python code in variables.
@@ -238,9 +240,9 @@ Python:
 
 ```python
 p = """n
-[each *a | it[0].replace("???", it[1]).replace("!?!", it[2])]"""
+[each *a | it[0].replace("???", it[1]).replace("!?!", it[2])]""" # Define the partial
 duck.toggle_warning()
-duck.register_partial(p)
+duck.register_partial(p) # Set up the partial
 ```
 
 Pekin:
@@ -261,14 +263,14 @@ Output:
 <a href='1.html'>Page 1</a><a href='2.html'>Page 2</a>
 ```
 
-You can register a partial by running `duck.register_partial("your partial")`.To use a partial, put the partial name after a dollar sign.
+You can register a partial by running `duck.register_partial("your partial")`. To use a partial, put the partial name after a dollar sign.
 
-There are 2 lines in the partial's code. The first one is the partial name, and the second is the Pekin code for the partial.
+There are 2 lines in the partial's code: the first one is the **partial name**, and the second is the Pekin **code** for the partial.
 
 ## 8. Extensions
 Partials can be used for reusing code, but it can't be used for creating your own Pekin code.
 
-Extensions are the solution. Extensions are like helpers in other templating engines.
+Extensions are the solution — they are like helpers in other templating engines.
 
 ### Extensions Pekin Code
 We can use `duck.register_extension()` to add an extensions.
@@ -302,7 +304,7 @@ The `code.py` section contains the Python to execute for the Pekin parameter.
 
 The parameter is the input for the extension. They are in the Pekin part of the extension as `[==> it]`. The input used in the template will be the variable `it` in the Python section.
 
-> Note: because Pekin uses RegEx, Pekin tags cannot have more than 1 parameter.
+> Note: because of a bug, **Pekin tags cannot have more than 1 parameter**.
 
 #### The finish function
 The finish function will replace the extension Pekin code in the template to the `val` variable. In the example, the tag will get the parameter and evaluate it.
@@ -343,3 +345,5 @@ When you run this piece of code and change the template to yours, you can now ev
 Complex Python expressions like `2**7-3+1234^34**5-342*7//9+13&5`can be put into brackets `[@ @]` and render as `1358`.
 
 > Tip: Access inputs in extensions: Pekin stores variable inputs in the dictionary `kwargs`. If you wanted to get a variable named `username`, then you can use `kwargs["username"]` in your extension.
+
+Now get coding!
